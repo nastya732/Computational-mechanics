@@ -1,11 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(Kepler LANGUAGES CXX)
 
-# Отключаем GNU-расширения (оставляем это глобально, так как нет target-аналога)
-set(CMAKE_CXX_EXTENSIONS OFF)
-# Полезно для работы автодополнения в VS Code
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON) 
-
 # Ищем Eigen
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
