@@ -15,8 +15,8 @@ int main(){
     };
 
     const Cartesian state = KeplerovToRV(kep, mu);
-    std::cout << "r = " << state.r.transpose() << "\n";
-    std::cout << "v = " << state.v.transpose() << "\n";
+    // std::cout << "r = " <<  state.r.transpose() << "\n";
+    // std::cout << "v = " << state.v.transpose() << "\n";
     const KeplerovElements result = RVToKeplerov(state, mu);
     std::cout << "a = " << result.a << '\n';
     std::cout << "w = " << result.w << '\n';

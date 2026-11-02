@@ -1,24 +1,25 @@
 cmake_minimum_required(VERSION 3.16)
 project(Kepler LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Отключаем GNU-расширения (оставляем это глобально, так как нет target-аналога)
 set(CMAKE_CXX_EXTENSIONS OFF)
+# Полезно для работы автодополнения в VS Code
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON) 
 
+# Ищем Eigen
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
-# 1. Подключаем папку src, чтобы CMake узнал о библиотеке
+# Подключаем папку с библиотекой
 add_subdirectory(src)
 
-# 2. Создаем исполняемый файл из main.cpp
+# Создаем исполняемый файл (тестовую программу)
 add_executable(kepler_test tests/main.cpp)
 
-# 3. Связываем main.cpp с нашей библиотекой и Eigen
-# (Имя KeplerConversions должно совпадать с тем, что в src/CMakeLists.txt)
+# Явно указываем стандарт для теста (PRIVATE)
 target_compile_features(kepler_test PRIVATE cxx_std_20)
-target_link_libraries(kepler_test PRIVATE KeplerConversions Eigen3::Eigen)
 
-# 4. ВАЖНО: Указываем, где искать заголовки "library/..."
-target_include_directories(kepler_test PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
+# Линкуем с нашей библиотекой
+target_link_libraries(kepler_test PRIVATE KeplerConversions)
+
+# Указываем, где искать заголовки (чтобы #include "library/..." сработал)
+target_include_directories(kepler_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

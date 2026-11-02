@@ -1,17 +1,16 @@
-# Создаем статическую библиотеку с именем KeplerConversions
+# Создаем библиотеку с уникальным именем
 add_library(KeplerConversions STATIC
-   library/KeplerovToRV.cpp
-   library/RVToKeplerov.cpp
+    library/KeplerovToRV.cpp
+    library/RVToKeplerov.cpp
 )
 
-# Задаем стандарт C++20
+# Задаем стандарт для библиотеки (PUBLIC — передастся всем, кто её использует)
 target_compile_features(KeplerConversions PUBLIC cxx_std_20)
 
-# Указываем, где лежат заголовки (.hpp)
+# Указываем пути к заголовкам
 target_include_directories(KeplerConversions PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/library # Указываем текущую папку (где лежит этот CMakeLists.txt)
+    ${CMAKE_CURRENT_SOURCE_DIR}/library
 )
 
-# Подключаем Eigen (если он используется в этих файлах)
-find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+# Линкуем с Eigen
 target_link_libraries(KeplerConversions PUBLIC Eigen3::Eigen)
