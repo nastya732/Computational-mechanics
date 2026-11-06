@@ -7,14 +7,12 @@ find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 # Подключаем папку с библиотекой
 add_subdirectory(src)
 
-# Создаем исполняемый файл (тестовую программу)
+# Тестовые программы
 add_executable(kepler_test tests/main.cpp)
+add_executable(simple_test tests/prediction_simple.cpp)
 
-# Явно указываем стандарт для теста (PRIVATE)
-target_compile_features(kepler_test PRIVATE cxx_std_20)
-
-# Линкуем с нашей библиотекой
-target_link_libraries(kepler_test PRIVATE KeplerConversions)
-
-# Указываем, где искать заголовки (чтобы #include "library/..." сработал)
-target_include_directories(kepler_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+# Одни и те же настройки для обоих тестов
+foreach(test_target kepler_test simple_test)
+    target_compile_features(${test_target} PRIVATE cxx_std_20)
+    target_link_libraries(${test_target} PRIVATE KeplerConversions)
+endforeach()

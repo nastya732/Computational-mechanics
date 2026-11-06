@@ -1,5 +1,5 @@
-#include "library/KeplerovToRV.hpp"
-#include "library/RVToKeplerov.hpp"
+#include "KeplerovToRV.hpp"
+#include "RVToKeplerov.hpp"
 #include <iostream>
 
 int main(){
