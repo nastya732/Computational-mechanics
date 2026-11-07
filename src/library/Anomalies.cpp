@@ -23,17 +23,17 @@ double MeanToEccentricAnomaly(double M, double e, double tol, int maxIter) {
     constexpr double twoPi = 2.0 * std::numbers::pi;
 
     M = std::fmod(M, twoPi);
-    if (M < 0) M += twoPi;                    
+    if (M < 0) M += twoPi;                    // приводим M к [0, 2π)
 
-    double E = (M > pi) ? M - e : M + e;      
+    double E = (M > pi) ? M - e : M + e;      // начальное приближение 
     for (int k = 0; k < maxIter; ++k) {
         double dE = (E - e * std::sin(E) - M) / (1.0 - e * std::cos(E));
         E -= dE;
-       
+        // относительный критерий: допуск масштабируется с величиной E
+        if (std::abs(dE) <= tol * std::max(1.0, std::abs(E))) break;
     }
     return E;
 }
-
 
 double EccentricToTrueAnomaly(double E, double e) {
     return std::atan2(std::sin(E) * std::sqrt(1.0 - e * e), std::cos(E) - e);
