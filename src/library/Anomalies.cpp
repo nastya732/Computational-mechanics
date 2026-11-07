@@ -38,3 +38,4 @@ double MeanToEccentricAnomaly(double M, double e, double tol, int maxIter) {
 double EccentricToTrueAnomaly(double E, double e) {
     return std::atan2(std::sin(E) * std::sqrt(1.0 - e * e), std::cos(E) - e);
 }
+
