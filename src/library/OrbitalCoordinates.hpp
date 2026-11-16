@@ -1,7 +1,7 @@
 #pragma once
 #include <Eigen/Dense>
 
-struct KeplerovElements {
+struct KeplerElements {
     double a;    // Большая полуось
     double e;    // Эксцентриситет
     double i;    // Наклонение

@@ -13,15 +13,15 @@ def specific_energy(state):
 
 
 def test_round_trip():
-    kep = Kepler.KeplerovElements(
+    kep = Kepler.KeplerElements(
         a=10000.0, e=0.3,
         i=math.radians(45.0),
         RAAN=math.radians(60.0),
         w=math.radians(30.0),
         nu=math.radians(10.0),
     )
-    state = Kepler.KeplerovToRV(kep, mu)
-    result = Kepler.RVToKeplerov(state, mu)
+    state = Kepler.KeplerToRV(kep, mu)
+    result = Kepler.RVToKepler(state, mu)
 
     assert abs(result.a / kep.a - 1.0) < 1e-9
     assert abs(result.e - kep.e) < 1e-9
@@ -50,8 +50,8 @@ def test_circular_quarter_period():
 
 
 def test_conservation():
-    kep = Kepler.KeplerovElements(10000.0, 0.3, 0.8, 1.0, 0.5, 0.0)
-    state0 = Kepler.KeplerovToRV(kep, mu)
+    kep = Kepler.KeplerElements(10000.0, 0.3, 0.8, 1.0, 0.5, 0.0)
+    state0 = Kepler.KeplerToRV(kep, mu)
     energy0 = specific_energy(state0)
     h0 = np.cross(state0.r, state0.v)
     T = 2.0 * math.pi * math.sqrt(kep.a**3 / mu)

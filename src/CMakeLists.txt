@@ -1,6 +1,6 @@
 add_library(KeplerConversions STATIC
-    library/KeplerovToRV.cpp
-    library/RVToKeplerov.cpp
+    library/KeplerToRV.cpp
+    library/RVToKepler.cpp
     library/Anomalies.cpp
     library/OrbitalPrediction.cpp
 )

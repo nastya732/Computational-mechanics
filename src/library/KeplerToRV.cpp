@@ -1,7 +1,7 @@
 #include <cmath>
-#include "KeplerovToRV.hpp"
+#include "KeplerToRV.hpp"
 
-Cartesian KeplerovToRV(const KeplerovElements& kep, const double mu) {
+Cartesian KeplerToRV(const KeplerElements& kep, const double mu) {
     const double cos_nu = std::cos(kep.nu);
     const double sin_nu = std::sin(kep.nu);
     const double p      = kep.a * (1.0 - kep.e * kep.e);   // фокальный параметр

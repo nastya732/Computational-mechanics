@@ -1,7 +1,7 @@
 #include <cmath>
-#include "RVToKeplerov.hpp"
+#include "RVToKepler.hpp"
 
-KeplerovElements RVToKeplerov(const Cartesian& state, const double mu) {
+KeplerElements RVToKepler(const Cartesian& state, const double mu) {
 
     const double r_mod = (state.r).norm();
     const double v_sq  = (state.v).squaredNorm();     // квадрат модуля скорости
@@ -39,7 +39,7 @@ KeplerovElements RVToKeplerov(const Cartesian& state, const double mu) {
     // Истинная аномалия
     const double nu = atan2((((state.r)).dot(g2)), (((state.r)).dot(g1)));
 
-    return KeplerovElements{
+    return KeplerElements{
         .a    = a,
         .e    = e_norm,
         .i    = i,

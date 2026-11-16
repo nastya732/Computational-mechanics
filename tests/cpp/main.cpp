@@ -1,10 +1,10 @@
-#include "KeplerovToRV.hpp"
-#include "RVToKeplerov.hpp"
+#include "KeplerToRV.hpp"
+#include "RVToKepler.hpp"
 #include <iostream>
 
 int main(){
     const double mu = 3.986004418e14;
-    const KeplerovElements kep{
+    const KeplerElements kep{
         7.0e6,  // a
         0.1,    // e
         0.5,   // i
@@ -14,10 +14,10 @@ int main(){
 
     };
 
-    const Cartesian state = KeplerovToRV(kep, mu);
+    const Cartesian state = KeplerToRV(kep, mu);
     // std::cout << "r = " <<  state.r.transpose() << "\n";
     // std::cout << "v = " << state.v.transpose() << "\n";
-    const KeplerovElements result = RVToKeplerov(state, mu);
+    const KeplerElements result = RVToKepler(state, mu);
     std::cout << "a = " << result.a << '\n';
     std::cout << "w = " << result.w << '\n';
     std::cout << "i = " << result.i << '\n';

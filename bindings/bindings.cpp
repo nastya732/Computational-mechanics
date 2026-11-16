@@ -7,20 +7,20 @@
 #include <string>
 
 #include "Anomalies.hpp"
-#include "KeplerovToRV.hpp"
+#include "KeplerToRV.hpp"
 #include "OrbitalCoordinates.hpp"
 #include "OrbitalPrediction.hpp"
-#include "RVToKeplerov.hpp"
+#include "RVToKepler.hpp"
 
 namespace nb = nanobind;
 using namespace nb::literals;
 
 namespace {
 
-std::string FormatKeplerovElements(const KeplerovElements& k) {
+std::string FormatKeplerElements(const KeplerElements& k) {
     std::ostringstream out;
     out << std::setprecision(12)
-        << "KeplerovElements(a=" << k.a << ", e=" << k.e << ", i=" << k.i
+        << "KeplerElements(a=" << k.a << ", e=" << k.e << ", i=" << k.i
         << ", RAAN=" << k.RAAN << ", w=" << k.w << ", nu=" << k.nu << ")";
     return out.str();
 }
@@ -37,24 +37,24 @@ std::string FormatCartesian(const Cartesian& s) {
 
 // Имя модуля = имя проекта в CMake (project(Kepler))
 NB_MODULE(Kepler, m) {
-    m.doc() = "Keplerov elements <-> Cartesian state and orbit prediction";
+    m.doc() = "Kepler elements <-> Cartesian state and orbit prediction";
 
     // ------------------------------------------------------------------ типы
-    nb::class_<KeplerovElements>(m, "KeplerovElements")
+    nb::class_<KeplerElements>(m, "KeplerElements")
         .def(nb::init<>())
         .def("__init__",
-             [](KeplerovElements* self, double a, double e, double i,
+             [](KeplerElements* self, double a, double e, double i,
                 double RAAN, double w, double nu) {
-                 new (self) KeplerovElements{a, e, i, RAAN, w, nu};
+                 new (self) KeplerElements{a, e, i, RAAN, w, nu};
              },
              "a"_a, "e"_a, "i"_a, "RAAN"_a, "w"_a, "nu"_a)
-        .def_rw("a", &KeplerovElements::a)
-        .def_rw("e", &KeplerovElements::e)
-        .def_rw("i", &KeplerovElements::i)
-        .def_rw("RAAN", &KeplerovElements::RAAN)
-        .def_rw("w", &KeplerovElements::w)
-        .def_rw("nu", &KeplerovElements::nu)
-        .def("__repr__", &FormatKeplerovElements);
+        .def_rw("a", &KeplerElements::a)
+        .def_rw("e", &KeplerElements::e)
+        .def_rw("i", &KeplerElements::i)
+        .def_rw("RAAN", &KeplerElements::RAAN)
+        .def_rw("w", &KeplerElements::w)
+        .def_rw("nu", &KeplerElements::nu)
+        .def("__repr__", &FormatKeplerElements);
 
     // Порядок аргументов (v, r) такой же, как порядок полей в struct Cartesian.
     // Надёжнее вызывать по именам: Cartesian(r=..., v=...)
@@ -72,8 +72,8 @@ NB_MODULE(Kepler, m) {
         .def("__repr__", &FormatCartesian);
 
     // ----------------------------------------------- функции (имена как в C++)
-    m.def("KeplerovToRV", &KeplerovToRV, "kep"_a, "mu"_a);
-    m.def("RVToKeplerov", &RVToKeplerov, "state"_a, "mu"_a);
+    m.def("KeplerToRV", &KeplerToRV, "kep"_a, "mu"_a);
+    m.def("RVToKepler", &RVToKepler, "state"_a, "mu"_a);
     m.def("OrbitalPrediction", &OrbitalPrediction, "state0"_a, "t0"_a, "t"_a, "mu"_a);
 
     m.def("TrueToEccentricAnomaly", &TrueToEccentricAnomaly, "nu_0"_a, "e"_a);

@@ -1,13 +1,13 @@
 #include "OrbitalPrediction.hpp"
-#include "RVToKeplerov.hpp"
-#include "KeplerovToRV.hpp"
+#include "RVToKepler.hpp"
+#include "KeplerToRV.hpp"
 #include "Anomalies.hpp"
 
 
 Cartesian OrbitalPrediction(const Cartesian& state0,
     double t0, double t, double mu) {
 
-    const KeplerovElements kep = RVToKeplerov(state0, mu);
+    const KeplerElements kep = RVToKepler(state0, mu);
 
     const double E0 = TrueToEccentricAnomaly(kep.nu, kep.e);
     const double M0 = EccentricToMeanAnomaly(E0, kep.e);
@@ -15,7 +15,7 @@ Cartesian OrbitalPrediction(const Cartesian& state0,
     const double E = MeanToEccentricAnomaly(M, kep.e);
     const double nu = EccentricToTrueAnomaly(E, kep.e);
 
-    return KeplerovToRV(KeplerovElements{ //создаем что-то типа копии (чтобы было видно, что изменилось)
+    return KeplerToRV(KeplerElements{ //создаем что-то типа копии (чтобы было видно, что изменилось)
         .a    = kep.a,
         .e    = kep.e,
         .i    = kep.i,
