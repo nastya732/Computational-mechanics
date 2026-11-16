@@ -22,5 +22,5 @@ Cartesian OrbitalPrediction(const Cartesian& state0,
         .RAAN = kep.RAAN,
         .w    = kep.w,
         .nu   = nu
-    });
+    }, mu);
 }

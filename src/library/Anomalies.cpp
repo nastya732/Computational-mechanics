@@ -1,6 +1,6 @@
 #include "Anomalies.hpp"
 #include <cmath>
-#include <number>
+#include <numbers>
 #include <limits>
 
 double TrueToEccentricAnomaly(double nu_0, double e) {
@@ -12,8 +12,8 @@ double EccentricToMeanAnomaly(double E_0, double e) {
 }
 
 // прогноз средней аномалии М
-double PropagateMeanAnomaly(double M0, double a, double mu, double t, double t0) {
-    double n = std::sqrt(mu / a) / a;   // среднее движение
+double PropagateMeanAnomaly(double M0, double a, double mu, double t0, double t) {
+    double n = std::sqrt(mu / a) / a;
     return M0 + n * (t - t0);
 }
 
